@@ -7,12 +7,13 @@ function App() {
   const calculateHandler = (userInput) => {
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
-
+    console.log('pushes though form data');
+    console.log(userInput);
     const yearlyData = []; // per-year results
 
-    let currentSavings = +userInput['current-savings']; // feel free to change the shape of this input object!
-    const yearlyContribution = +userInput['yearly-contribution']; // as mentioned: feel free to change the shape...
-    const expectedReturn = +userInput['expected-return'] / 100;
+    let currentSavings = +userInput['savings']; // feel free to change the shape of this input object!
+    const yearlyContribution = +userInput['contribution']; // as mentioned: feel free to change the shape...
+    const expectedReturn = +userInput['return'] / 100;
     const duration = +userInput['duration'];
 
     // The below code calculates yearly results (total savings, interest etc)
@@ -27,7 +28,8 @@ function App() {
         yearlyContribution: yearlyContribution,
       });
     }
-
+    console.log('calculates yearly data');
+    console.log(yearlyData);
     // do something with yearlyData ...
   };
 
@@ -38,7 +40,7 @@ function App() {
       <Header logo={logo}/>
 
       {/* InvestmentForm component */}
-      <InvestmentForm />
+      <InvestmentForm onSaveInvestmentData={calculateHandler} />
 
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}

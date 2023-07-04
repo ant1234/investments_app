@@ -6,12 +6,6 @@ const InvestmentForm = props => {
     // Form submission
     // Reset button being clicked
     // User input changing (in the various <input /> fields)
-    const [submissionData, setSubmissionData] = useState({
-      savings: '',
-      contribution: '',
-      return: '',
-      duration: '',
-    });
    
     const [currentSavings, setCurrentSavings] = useState('');
     const [yearlyContribution, setYearlyContribution] = useState('');
@@ -43,23 +37,17 @@ const InvestmentForm = props => {
 
     const onSubmitHandler = event => {
       event.preventDefault();
-      setSubmissionData({
-        ...submissionData,
+      
+      const submissionData = {
         savings: currentSavings,
         contribution: yearlyContribution,
         return: expectedReturn,
         duration: duration,
-      });
+      };
 
       // pass data back to App.js.
       props.onSaveInvestmentData(submissionData);
 
-      // reset the form once submitted.
-      setCurrentSavings('');
-      setYearlyContribution('');
-      setExpectedReturn('');
-      setDuration('');
-      console.log(submissionData);
     };
 
     return (
