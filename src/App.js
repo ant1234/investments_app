@@ -28,7 +28,7 @@ function App() {
         savingsEndOfYear: currentSavings,
         yearlyInterest: yearlyInterest,
         yearlyContribution: yearlyContribution,
-
+        currentSavings: currentSavings,
       });
     }
     // do something with yearlyData ...
@@ -63,8 +63,8 @@ function App() {
         <InvestmentResult
           year={calcYearlyData.year}
           savingsEndOfYear={calcYearlyData.savingsEndOfYear}
-          yearlyInterest={calcYearlyData.yearlyInterest}
-          yearlyContribution={calcYearlyData.yearlyContribution}
+          yearlyInterest={calcYearlyData.yearlyInterest - calcYearlyData.currentSavings - calcYearlyData.yearlyContribution * calcYearlyData.year}
+          yearlyContribution={calcYearlyData.currentSavings + calcYearlyData.yearlyContribution * calcYearlyData.year}
         />   
       ))}
         </tbody>
