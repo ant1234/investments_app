@@ -2,13 +2,15 @@ import logo from './assets/investment-calculator-logo.png';
 import Header from './components/Header';
 import InvestmentForm from './components/InvestmentForm';
 import InvestmentResult from './components/InvestmentResult';
+import React, {useState} from 'react';
 
 function App() {
+
+  const [calcYearlyData, setCalcYearlyData] = useState('');
+
   const calculateHandler = (userInput) => {
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
-    console.log('pushes though form data');
-    console.log(userInput);
     const yearlyData = []; // per-year results
 
     let currentSavings = +userInput['savings']; // feel free to change the shape of this input object!
@@ -23,14 +25,14 @@ function App() {
       yearlyData.push({
         // feel free to change the shape of the data pushed to the array!
         year: i + 1,
-        yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
+        yearlyInterest: yearlyInterest,
         yearlyContribution: yearlyContribution,
+
       });
     }
-    console.log('calculates yearly data');
-    console.log(yearlyData);
     // do something with yearlyData ...
+    setCalcYearlyData(yearlyData);
   };
 
   return (
@@ -46,7 +48,29 @@ function App() {
       {/* Show fallback text if no data is available */}
 
       {/* InvestmentResult component */}
-      <InvestmentResult />
+      <table className="result">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Total Savings</th>
+            <th>Interest (Year)</th>
+            <th>Total Interest</th>
+            <th>Invested Capital</th>
+          </tr>
+        </thead>
+        <tbody>
+        {Object.values(calcYearlyData).map((calcYearlyData) => (
+        <InvestmentResult
+          year={calcYearlyData.year}
+          savingsEndOfYear={calcYearlyData.savingsEndOfYear}
+          yearlyInterest={calcYearlyData.yearlyInterest}
+          yearlyContribution={calcYearlyData.yearlyContribution}
+        />   
+      ))}
+        </tbody>
+      </table>
+      
+      <InvestmentResult formData={calcYearlyData}/>
     </div>
   );
 }
